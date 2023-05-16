@@ -1,6 +1,89 @@
-WITH  account as (
+SELECT 
+ Id
+,CCS_Country_Code__c
+,CCS_Date_of_Birth__c
+,CCS_Email__c
+,CCS_Facility_ID__c
+,CCS_First_Name__c
+,CCS_Is_Card_Needed__c
+,CCS_Last_Name__c
+,CCS_Level_of_Control__c
+,CCS_Limit__c
+,CCS_Mobile_Number__c
+,CCS_Number_of_Cards__c
+,CCS_Title__c
+,ConnectionReceivedId
+,ConnectionSentId
+,CreatedById
+,CreatedDate
+,CurrencyIsoCode
+,IsDeleted
+,LastActivityDate
+,LastModifiedById
+,LastModifiedDate
+,LastReferencedDate
+,LastViewedDate
+,Name
+,SystemModstamp
+FROM rskcsp_ds_cardholder ;
+
+SELECT 
+ Id
+,CCS_Country_Code__c
+,CCS_Date_of_Birth__c
+,CCS_Email__c
+,CCS_Facility_ID__c
+,CCS_First_Name__c
+,CCS_Is_Card_Needed__c
+,CCS_Last_Name__c
+,CCS_Level_of_Control__c
+,CCS_Limit__c
+,CCS_Mobile_Number__c
+,CCS_Number_of_Cards__c
+,CCS_Title__c
+,ConnectionReceivedId
+,ConnectionSentId
+,CreatedById
+,CreatedDate
+,CurrencyIsoCode
+,IsDeleted
+,LastActivityDate
+,LastModifiedById
+,LastModifiedDate
+,LastReferencedDate
+,LastViewedDate
+,Name
+,SystemModstamp
+FROM 
+
+rskcsp_ds_cardholder_staging;
 
 
-           SELECT * FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_downstream_raw.rskcsp_ds_account_covenant
-    )
-select * from account
+SELECT 
+ Id
+,CCS_Country_Code__c
+,CCS_Date_of_Birth__c
+,CCS_Email__c
+,CCS_Facility_ID__c
+,CCS_First_Name__c
+,CCS_Is_Card_Needed__c
+,CCS_Last_Name__c
+,CCS_Level_of_Control__c
+,CCS_Limit__c
+,CCS_Mobile_Number__c
+,CCS_Number_of_Cards__c
+,CCS_Title__c
+,ConnectionReceivedId
+,ConnectionSentId
+,CreatedById
+,CreatedDate
+,CurrencyIsoCode
+,IsDeleted
+,LastActivityDate
+,LastModifiedById
+,LastModifiedDate
+,LastReferencedDate
+,LastViewedDate
+,Name
+,SystemModstamp
+FROM rskcsp_ds_cardholder_curated;
