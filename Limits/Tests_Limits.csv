@@ -1,0 +1,4 @@
+Test Name,Bigquery SQL,salesforce SQL,bigquery index,salesforce index,execute,SQL subfolder, comments
+TC_cardholder,TC_cardholder_GCP.sql,TC_cardholder_NCINO.sql,"[0]","[0]",1,Limits
+TC_legal_entities,TC_legal_entities_GCP.sql,TC_legal_entities_NCINO.sql,"[0]","[0]",1,Limits
+TC_limit,TC_limit_GCP.sql,TC_limit_NCINO.sql,"[0]","[0]",1,Limits

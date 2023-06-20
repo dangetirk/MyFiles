@@ -1,0 +1,3 @@
+SELECT
+ Id,Name,CreatedById,CreatedDate,LastModifiedDate,CurrencyIsoCode,LastModifiedById,LLC_BI__Account__c,LLC_BI__Borrower_Type__c,LLC_BI__Contingent_Amount__c,LLC_BI__Contingent_Type__c,LLC_BI__Loan__c,LLC_BI__Ownership__c,LLC_BI__Product_Package__c,Migration_ID__c,RecordTypeId FROM  LLC_BI__Legal_Entities__c
+ where CreatedDate >=2023-06-13T00:00:00.000Z

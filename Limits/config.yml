@@ -1,0 +1,16 @@
+logging: true
+
+salesforce:
+  username: ratna-kumar.dangeti@lloydsbanking.com.devpoc
+  password: Sony@4076
+  consumer_key: 3MVG9od6vNol.eBijuSl01nDrsQ7wHeq7GBHlowFNlxpnaOF5Y8yMB5zyzsM9C6VfRvs5TAYwIJPl4jecrHUs
+  consumer_secret: A8F3E6754BA366637DEC383CBDFAF30677BE6E634D6335BFDD002CD8749CC34A
+  domain: test
+
+csv:
+  filename: Tests_Limits.csv
+
+bigquery:
+  project_ID: dmn01-rsksoi-bld-01-2017
+  dataset1: your_dataset1
+  
