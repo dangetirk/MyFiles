@@ -1,0 +1,19 @@
+Loan:
+1. Column exist in mapping doucment and not exists in code for Loan object
+CCS_Annual_Repayment__c,
+CCS_Annual_Repayment_Stressed__c,
+CCS_Commentary_on_Pricing__c,
+CCS_Monthly_Repayment__c,
+CCS_Monthly_Repayment_Stressed__c,
+CCS_Stressed_Rate__c,
+2. Data not available curated layer for Loan object
+
+Card Holder:
+For card holder object for the column CCS_Limit__c not picking the latest value (Refer the id: a5V26000000EHRqEAO)
+
+Others:
+1. Table names not match with mapping doucmnets
+rskcsp_ds_entity_involvement
+rskcsp_ds_facility
+
+
