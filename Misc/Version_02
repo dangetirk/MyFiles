@@ -1,0 +1,96 @@
+from google.cloud import bigquery
+import yaml
+
+# Set your project ID, dataset ID, and table name
+project_id = 'your_project_id'
+dataset_id = 'your_dataset_id'
+table_name = 'your_table_name'
+
+# Initialize the BigQuery client
+client = bigquery.Client(project=project_id)
+
+# Define the SQL query to get the table schema
+sql = f"""
+SELECT
+  table_name,
+  column_name,
+  is_nullable,
+  data_type
+FROM
+  `{project_id}.{dataset_id}.INFORMATION_SCHEMA.COLUMNS`
+WHERE
+  table_name = '{table_name}';
+"""
+
+# Define the SQL query to get unique constraints
+unique_sql = f"""
+SELECT
+  column_name
+FROM
+  `{project_id}.{dataset_id}.INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE`
+WHERE
+  table_name = '{table_name}'
+  AND constraint_type = 'UNIQUE';
+"""
+
+# Execute the queries and get the results
+query_job = client.query(sql)
+results = query_job.result()
+
+unique_query_job = client.query(unique_sql)
+unique_results = unique_query_job.result()
+
+# Create a set of unique columns
+unique_columns = set([row.column_name for row in unique_results])
+
+# Function to map BigQuery data types to dbt tests
+def map_data_type_to_dbt_test(data_type):
+    if data_type == 'STRING':
+        return "is_string"
+    elif data_type == 'INT64':
+        return "is_integer"
+    elif data_type == 'FLOAT64':
+        return "is_float"
+    elif data_type == 'BOOL':
+        return "is_boolean"
+    elif data_type == 'TIMESTAMP':
+        return "is_timestamp"
+    elif data_type == 'DATE':
+        return "is_date"
+    else:
+        return None
+
+# Initialize a dictionary to store the generated tests
+tests = {
+    "version": 2,
+    "models": [
+        {
+            "name": table_name,
+            "columns": []
+        }
+    ]
+}
+
+# Iterate through the columns and generate appropriate tests
+for row in results:
+    column_tests = []
+    if row.is_nullable == 'NO':
+        column_tests.append("not_null")
+
+    # Add test for data type
+    data_type_test = map_data_type_to_dbt_test(row.data_type)
+    if data_type_test:
+        column_tests.append(data_type_test)
+
+    # Add test for uniqueness if defined in the schema
+    if row.column_name in unique_columns:
+        column_tests.append("unique")
+
+    tests["models"][0]["columns"].append({
+        "name": row.column_name,
+        "tests": column_tests
+    })
+
+# Write the tests to a YAML file in your dbt project
+with open(f"{table_name}_schema_tests.yml", "w") as outfile:
+    yaml.dump(tests, outfile)
