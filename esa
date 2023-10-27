@@ -5,7 +5,7 @@ with raw as (
                   SELECT "rskcsp_ds_limit" table_name, Count(*) cnt FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_downstream_raw.rskcsp_ds_limit union all
                   SELECT "rskcsp_ds_legal_entities" table_name, Count(*) cnt  FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_downstream_raw.rskcsp_ds_legal_entities ),
        staging as (
-                  SELECT "rskcsp_ds_cardholder" as table_name, count(1) as count  FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_staging.rskcsp_ds_cardholder_staging union all
+                  SELECT "rskcsp_ds_cardholder" as table_name, count(1) as cnt  FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_staging.rskcsp_ds_cardholder_staging union all
                   SELECT "rskcsp_ds_limit" as table_name, count(1)  FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_staging.rskcsp_ds_limit_staging union all
                   SELECT "rskcsp_ds_loan" as table_name, count(1)  FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_staging.rskcsp_ds_loan_staging union all
                   SELECT "rskcsp_ds_legal_entities" as table_name, count(1)  FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_staging.rskcsp_ds_legal_entities_staging),
