@@ -1,25 +1,15 @@
-with raw as (
+What apps do you need to install on the Mac?
 
-                  SELECT  "rskcsp_ds_cardholder"  as table_name, Count(*) cnt FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_downstream_raw.rskcsp_ds_cardholder union all
-                  SELECT "rskcsp_ds_loan" table_name, Count(*) cnt FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_downstream_raw.rskcsp_ds_loan union all
-                  SELECT "rskcsp_ds_limit" table_name, Count(*) cnt FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_downstream_raw.rskcsp_ds_limit union all
-                  SELECT "rskcsp_ds_legal_entities" table_name, Count(*) cnt  FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_downstream_raw.rskcsp_ds_legal_entities ),
-       staging as (
-                  SELECT "rskcsp_ds_cardholder" as table_name, count(1) as cnt  FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_staging.rskcsp_ds_cardholder_staging union all
-                  SELECT "rskcsp_ds_limit" as table_name, count(1)  FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_staging.rskcsp_ds_limit_staging union all
-                  SELECT "rskcsp_ds_loan" as table_name, count(1)  FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_staging.rskcsp_ds_loan_staging union all
-                  SELECT "rskcsp_ds_legal_entities" as table_name, count(1)  FROM dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_staging.rskcsp_ds_legal_entities_staging),
-       Curated as (SELECT "rskcsp_ds_cardholder" as table_name, count(1) as count  FROM  dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_curation.rskcsp_ds_cardholder_curated union all
-                                       SELECT "rskcsp_ds_limit" as table_name, count(1)  AS COUNT FROM  dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_curation.rskcsp_ds_limit_curated union all
-                                       SELECT "rskcsp_ds_loan" as table_name, count(1) AS COUNT FROM  dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_curation.rskcsp_ds_loan_curated union all
-                                       SELECT "rskcsp_ds_legal_entities" as table_name, count(1)   AS COUNT FROM  dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_curation.rskcsp_ds_legal_entities_curated 
-),
- CONSUMPTION as (SELECT "rskcsp_ds_cardholder" as table_name, count(1) as count  FROM  dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_consumption.cardholder union all
+Given that most applications are web-based and you'll be working with GCP, you might need browsers such as Chrome or Firefox. Additionally, you may require the GCP SDK, terminal-based utilities, and OpenVPN software for secure access.
+Are you processing in the cloud?
 
-                                       SELECT "rskcsp_ds_loan" as table_name, count(1) AS COUNT FROM  dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_consumption.loan union all
-                                       SELECT "rskcsp_ds_legal_entities" as table_name, count(1)   AS COUNT FROM  dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_consumption.legal_entities union all
-                                       SELECT "rskcsp_ds_limit" as table_name, count(1) AS COUNT FROM  dmn01-rsksoi-bld-01-2017.dmn01_rsksoi_euwe2_rsk_csp_ds_consumption.limit )
-                  select a.table_name, b.cnt raw_layer_count, a.count staging_layer_count , c.count curated_layer_count 
-                  ,D.COUNT AS CONSUMPTION_LAYER_COUNT from staging A, RAW B, curated c , CONSUMPTION D
-                  WHERE A.TABLE_NAME = B.TABLE_NAME and a.table_name = c.table_name
-                  AND A.TABLE_NAME = D.TABLE_NAME ORDER BY 1;
+Yes, GCP (Google Cloud Platform) is a cloud service; therefore, most of your processing will take place there.
+Where are we running apps to do testing?
+
+Testing is primarily conducted on GCP, using tools like dbt and VS Code.
+Are your machines running slowly?
+
+A MacBook Air should typically be suitable for tasks that are mostly cloud-based. However, it is important to know the configuration of the MacBook Air, as performance depends on the processor and RAM.
+Is the bulk of testing work in the cloud?
+
+Yes, we can conduct bulk testing in the cloud.
