@@ -1,15 +1,16 @@
-What apps do you need to install on the Mac?
 
-Given that most applications are web-based and you'll be working with GCP, you might need browsers such as Chrome or Firefox. Additionally, you may require the GCP SDK, terminal-based utilities, and OpenVPN software for secure access.
-Are you processing in the cloud?
+Upon recent examination of our data sets, the following issues have been identified:
 
-Yes, GCP (Google Cloud Platform) is a cloud service; therefore, most of your processing will take place there.
-Where are we running apps to do testing?
+1. **Discrepancy Between Table and Record Counts:**
+   - A discrepancy has been observed between the table count and the record count. This matter requires immediate and thorough investigation to identify and rectify the source of the inconsistency.
 
-Testing is primarily conducted on GCP, using tools like dbt and VS Code.
-Are your machines running slowly?
+2. **Record Fragmentation Due to Special Characters:**
+   - We have detected that special characters are causing record fragmentation in the following files:
+     - Entitylist_Covenantlist_20230805
+     - LendingFinancialList_20230805
+     - LendingFinancialList_Covenants
+     - Work_LN
+   This fragmentation could lead to data integrity issues, and as such, necessitates prompt resolution.
 
-A MacBook Air should typically be suitable for tasks that are mostly cloud-based. However, it is important to know the configuration of the MacBook Air, as performance depends on the processor and RAM.
-Is the bulk of testing work in the cloud?
-
-Yes, we can conduct bulk testing in the cloud.
+3. **Incorrect Data in 'lendingfinanciallist_id' Column:**
+   - During the data loading process, incorrect values have been populated in the 'lendingfinanciallist_id' column for a subset of new records. It is critical to address this error to maintain the accuracy of our data.
