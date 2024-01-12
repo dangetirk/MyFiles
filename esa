@@ -67,7 +67,8 @@ def process_config_entries(config_entries, input_dir, mask_folder):
                 if col_position >= 0 and col_position < len(body.columns):
                     if col_name.lower() == 'postcode':
                         body.iloc[:, col_position] = body.iloc[:, col_position].apply(mask_postcode)
-                    # Add more conditions for other column names if needed
+                    elif col_name.lower() == 'first_name':
+                        body.iloc[:, col_position] = body.iloc[:, col_position].apply(replace_first_name)
 
         body = body.applymap(lambda x: x.replace("|", ",").replace("\n", " ") if isinstance(x, str) else x)
         csv_body = body.to_csv(index=False, sep='|', header=False, quoting=csv.QUOTE_NONE, quotechar="", escapechar="\\")
@@ -80,6 +81,7 @@ def process_config_entries(config_entries, input_dir, mask_folder):
         print(f"Masked file saved to {output_file}")
 
 # ... (rest of the code)
+
 
 if len(sys.argv) < 2:
     print("Please provide a path to the configuration file as an argument.")
