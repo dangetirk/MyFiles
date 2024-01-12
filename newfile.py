@@ -89,4 +89,3 @@ config_entries = [
 ]
 
 process_config_entries(config_entries, input_dir, mask_folder)
-
