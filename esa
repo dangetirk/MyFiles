@@ -1,28 +1,37 @@
-from simple_salesforce import Salesforce
 from faker import Faker
+from simple_salesforce import Salesforce
+import json
 
-# Initialize Faker
+# Initialize Faker library
 fake = Faker()
 
-# Salesforce credentials
-username = 'your_username'
-password = 'your_password'
-client_id = 'your_client_id'
-client_secret = 'your_client_secret'
+# Generate fake data for a Salesforce Contact (as an example)
+def generate_fake_data(num_records):
+    data = []
+    for _ in range(num_records):
+        record = {
+            'LastName': fake.last_name(),
+            'Email': fake.email(),
+            'Phone': fake.phone_number(),
+        }
+        data.append(record)
+    return data
 
-# Initialize Salesforce connection with OAuth 2.0 authentication
-sf = Salesforce(username=username, password=password, client_id=client_id, client_secret=client_secret)
+# Salesforce login credentials
+sf_username = 'your_username'
+sf_password = 'your_password'
+sf_security_token = 'your_security_token'
 
-# Define the number of records you want to insert
-num_records = 100
+# Initialize Salesforce connection
+sf = Salesforce(username=sf_username, password=sf_password, security_token=sf_security_token)
 
-# Insert fake data into Salesforce table
-for _ in range(num_records):
-    sf.Account.create({
-        'Name': fake.company(),
-        'Industry': fake.random_element(elements=('Technology', 'Healthcare', 'Finance', 'Retail')),
-        'Phone': fake.phone_number()
-        # Add other fields as needed
-    })
+# Generate 10 fake records
+fake_data = generate_fake_data(10)
 
-print("Fake data insertion completed.")
+# Insert records into Salesforce
+for record in fake_data:
+    try:
+        result = sf.Contact.create(record)
+        print(f"Record inserted. ID: {result['id']}")
+    except Exception as e:
+        print(f"Error inserting record: {e}")
