@@ -6,7 +6,7 @@ import os
 def extract_salesforce_data(object_names, output_folder):
     for object_name in object_names:
         # Define the sfdx command to export data
-        sfdx_command = f"sfdx force:data:tree:export -q \"SELECT Id, Name FROM {object_name}\" -d {output_folder} -u <your_username> -p"
+        sfdx_command = f"sfdx force:data:tree:export -q \"SELECT Id, Name FROM {object_name}\" -d \"{output_folder}\" -u <your_username> -p"
 
         try:
             # Run the sfdx command and capture the output
