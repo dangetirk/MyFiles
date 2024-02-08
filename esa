@@ -1,37 +1,40 @@
-from faker import Faker
-from simple_salesforce import Salesforce
+import subprocess
+import csv
 import json
+import os
 
-# Initialize Faker library
-fake = Faker()
+def extract_salesforce_data(object_names, output_folder):
+    for object_name in object_names:
+        # Define the sfdx command to export data
+        sfdx_command = f"sfdx force:data:tree:export -q \"SELECT Id, Name FROM {object_name}\" -d {output_folder} -u <your_username> -p"
 
-# Generate fake data for a Salesforce Contact (as an example)
-def generate_fake_data(num_records):
-    data = []
-    for _ in range(num_records):
-        record = {
-            'LastName': fake.last_name(),
-            'Email': fake.email(),
-            'Phone': fake.phone_number(),
-        }
-        data.append(record)
-    return data
+        try:
+            # Run the sfdx command and capture the output
+            subprocess.check_output(sfdx_command, shell=True)
+            
+            # Load the exported JSON data
+            with open(os.path.join(output_folder, f"{object_name}_data.json")) as json_file:
+                data = json.load(json_file)
+            
+            # Write the data to the CSV file
+            with open(os.path.join(output_folder, f"{object_name}_data.csv"), 'w', newline='') as csvfile:
+                csv_writer = csv.writer(csvfile)
+                
+                # Write header row
+                csv_writer.writerow(data['sobjects'][0]['records'][0].keys())
+                
+                # Write data rows
+                for record in data['sobjects'][0]['records']:
+                    csv_writer.writerow(record.values())
+            
+            print(f"Data from {object_name} object exported successfully to {object_name}_data.csv in {output_folder} folder")
+        
+        except subprocess.CalledProcessError as e:
+            print(f"Error: {e}")
 
-# Salesforce login credentials
-sf_username = 'your_username'
-sf_password = 'your_password'
-sf_security_token = 'your_security_token'
 
-# Initialize Salesforce connection
-sf = Salesforce(username=sf_username, password=sf_password, security_token=sf_security_token)
+# Example usage:
+object_names = ["Account", "Contact", "Opportunity"]  # Specify the Salesforce object names you want to extract data from
+output_folder = "./data"  # Specify the output folder where CSV files will be saved
 
-# Generate 10 fake records
-fake_data = generate_fake_data(10)
-
-# Insert records into Salesforce
-for record in fake_data:
-    try:
-        result = sf.Contact.create(record)
-        print(f"Record inserted. ID: {result['id']}")
-    except Exception as e:
-        print(f"Error inserting record: {e}")
+extract_salesforce_data(object_names, output_folder)
