@@ -4,6 +4,12 @@ import json
 import os
 
 def extract_salesforce_data(object_names, output_folder):
+    # Create the output folder if it does not exist
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+    else:
+        print(f"Output folder '{output_folder}' already exists.")
+
     for object_name in object_names:
         # Define the sfdx command to export data
         sfdx_command = f"sfdx force:data:tree:export -q \"SELECT Id, Name FROM {object_name}\" -d \"{output_folder}\" -u <your_username> -p"
